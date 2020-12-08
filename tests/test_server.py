@@ -6,7 +6,6 @@ import pytest
 def test_with_valid_values(client, value):
     res = client.post(data={"test":value})
     assert 200 == res.status_code
-    print(res)
     assert 'OK' in res.get_data(as_text=True)
 
 
@@ -34,7 +33,7 @@ def test_get(client):
 
 
 # ----------------------------- negative cases ----------------------------------------
-@pytest.mark.parametrize('value', [-5.5, '-0x19323L', 45.j, 'six'.encode('utf-32-le')])
+@pytest.mark.parametrize('value', [-5.5, '-0x19323L', 45.j, 'six'])
 # test with float, long, complex digits and string
 def test_post_with_unsupported_values(client, value):
     res = client.post(data={"test": value})
